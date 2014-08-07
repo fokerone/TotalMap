@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+		<style type="text/css">
+			html { height: 100% }
+			body { height: 100%; margin: 0; padding: 0 }
+			#map_canvas { height: 100% }
+		</style>
+		<script type="text/javascript"
+			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD40Hf60cV9GjZ1Fu-Qj-YAL2wEFyZbp3w&sensor=false">
+		</script>
+		<script type="text/javascript">
+		
+			var home = new google.maps.LatLng(-32.9264482,-68.813779);
+		
+			function IrInicio(panelControlDiv, map) {
+			
+			panelControlDiv.style.padding = '5px';
+				
+			//Se crea un div donde se colocan las opciones
+			var panelControl = document.createElement('div');
+			panelControl.style.backgroundColor = 'white';
+			panelControl.style.borderStyle = 'solid';
+			panelControl.style.borderWidth = '2px';
+			panelControl.style.cursor = 'pointer';
+			panelControl.style.textAling = 'center';
+			panelControl.style.title = "Volver al Inicio";
+			
+			//Se inserta el div con las opciones dentro del div que las contendra
+			panelControlDiv.appendChild(panelControl);
+			
+			//Se crean los botones... etc dentro
+			var btnInicio = document.createElement('div');
+			btnInicio.style.fontFamily = 'Arial, sans-serif';
+			btnInicio.style.fontSize = '12px';
+			btnInicio.style.paddingLeft = '4px';
+			btnInicio.style.paddingRight = '4px';
+			btnInicio.innerHTML = 'Ir al inicio';
+			
+			//Se agrega el boton al panel de control
+			panelControl.appendChild(btnInicio);
+			
+			google.maps.event.addDomListener(panelControl, 'click', function() {
+				map.setCenter(home);
+				});
+			}
+		
+		
+		
+			function initialize() {
+				var mapOptions = {
+					center: new google.maps.LatLng(-32.9264482,-68.813779),
+					zoom: 10,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				var map = new google.maps.Map(document.getElementById("map_canvas"),
+					mapOptions);
+				
+				var panelControlDiv = document.createElement('div');
+				var panelControl = new IrInicio(panelControlDiv, map);
+
+				panelControlDiv.index = 1;
+				map.controls[google.maps.ControlPosition.TOP_RIGHT].push(panelControlDiv);
+			}
+		 
+		</script>
+	</head>
+	<body onload="initialize()">
+		<div id="map_canvas" style="width:100%; height:100%"></div>
+	</body>
+</html>
